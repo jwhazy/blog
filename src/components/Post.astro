@@ -1,0 +1,41 @@
+---
+import type Post from "../types/Post";
+
+export interface Props {
+  content: Post;
+}
+
+const {
+  content: { title, pubDate, updatedDate, heroImage, description, author },
+} = Astro.props;
+---
+
+<div
+  class="flex flex-col md:flex-row md:w-2/3 xl:w-1/2 md:space-x-6 space-y-2 md:space-y-0 w-full animate__animated animate__fadeIn"
+>
+  {
+    heroImage && (
+      <img
+        src={heroImage}
+        class="h-32 w-full rounded-xl object-cover md:w-48"
+        onclick="window.location.href = Astro.props.content.url"
+      />
+    )
+  }
+  <div class="w-full">
+    <div class="flex flex-col space-y-2">
+      <div>
+        <p class="text-slate-300 tracking-widest">
+          {pubDate?.toUpperCase()} • BY {author?.toUpperCase()}
+        </p>
+        <h1>{title}</h1>
+      </div>
+      <p class="break-words">{description}</p>
+      <p>{updatedDate}</p>
+      <a
+        class="text-sm lg:text-lg cursor-pointer rounded-xl transition-all hover:font-semibold w-fit"
+        href={Astro.props.content.url}>Read more...</a
+      >
+    </div>
+  </div>
+</div>

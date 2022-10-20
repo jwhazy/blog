@@ -1,0 +1,22 @@
+---
+export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+import clsxm from "../../utils/clsxm";
+
+const { href, class: className, ...props } = Astro.props;
+const isActive = href === Astro.url.pathname.replace(/\/$/, "");
+---
+
+<a
+  {...props}
+  class:list={[
+    clsxm(
+      "cursor-pointer rounded-xl px-3 py-1 text-sm transition-all hover:bg-gray-500 hover:bg-opacity-70 hover:font-semibold hover:shadow-xl",
+      props.className
+    ),
+    { active: isActive },
+  ]}
+  href={href}
+  type="button"
+>
+  <slot class="text-center" />
+</a>

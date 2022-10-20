@@ -1,0 +1,52 @@
+---
+import Head from "../components/Head.astro";
+import Header from "../components/Header/index.astro";
+import Footer from "../components/Footer/index.astro";
+import type Post from "../types/Post";
+
+export interface Props {
+  content: Post;
+}
+
+const {
+  content: { title, description, pubDate, heroImage },
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <Head title={title} description={description} />
+  </head>
+
+  <body>
+    <Header />
+    <main class="flex justify-center animate__animated animate__fadeIn">
+      <article
+        class="px-4 md:px-16 xl:w-2/3 space-y-4 flex flex-col items-start"
+      >
+        {
+          heroImage && (
+            <img
+              src={heroImage}
+              class="h-1/3 w-full rounded-xl object-cover"
+              alt=""
+            />
+          )
+        }
+        <div class="flex flex-col">
+          <h1>{title}</h1>
+          <p class="text-slate-300 tracking-widest">
+            {pubDate?.toUpperCase()} • BY JACKSTA
+          </p>
+
+          <hr class="my-3 w-full" />
+          <slot class="pt-6" />
+          <a href="/" class="pt-6 hover:font-semibold transition-all w-fit"
+            >🢐 Go back</a
+          >
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
